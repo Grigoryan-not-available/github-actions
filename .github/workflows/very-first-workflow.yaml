@@ -26,5 +26,3 @@ jobs:
               run: Write-Output "Windows string"
             - name: Error step
               run: check_error_step
-        
-        
