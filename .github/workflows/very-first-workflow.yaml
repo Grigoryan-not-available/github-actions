@@ -23,7 +23,7 @@ jobs:
         needs: [run-shell-commands]
         steps:
             - name: echo string
-              run: Write-Output "Windows str"
+              run: Write-Output "Windows string"
             - name: Error step
               run: check_error_step
         
