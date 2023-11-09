@@ -8,8 +8,7 @@ jobs:
       - name: List dir before checkout
         run: ls -la
 
-      - name: Checkout with action
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
 
       - name: List dir after checkout
         run: ls -la
