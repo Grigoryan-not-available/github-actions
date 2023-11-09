@@ -1,5 +1,9 @@
 name: Working dirs & shells
 on: [push]
+defaults:
+  run:
+    shell: bash
+    # working-directory: /var/lib/
 
 jobs:
   display-wf-info:
@@ -13,11 +17,15 @@ jobs:
           echo $GITHUB_REPOSITORY
           echo $GITHUB_WORKSPACE
 
+      - name: Chank working dir
+        working-directory: /home/runner
+        run: pwd
+
   display-wf-info-windows:
     runs-on: windows-latest
     steps:
       - name: Disolay working dir and list files
-        # shell: bash
+        shell: pwsh
         run: |
           Get-Location
           dir
@@ -25,4 +33,7 @@ jobs:
           echo $env:GITHUB_REPOSITORY
           echo $env:GITHUB_WORKSPACE
 
-      
+      - name: Python shell
+        shell: python
+        run: |
+          print('-' * 128)
