@@ -1,0 +1,27 @@
+name: Working dirs & shells
+on: [push]
+
+jobs:
+  display-wf-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disolay working dir and list files
+        run: |
+          pwd
+          ls -la
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+
+  display-wf-info-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Disolay working dir and list files
+        run: |
+          pwd
+          ls -la
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+
+      
