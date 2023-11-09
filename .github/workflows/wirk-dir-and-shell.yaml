@@ -17,6 +17,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Disolay working dir and list files
+        shell: bash
         run: |
           pwd
           ls -la
