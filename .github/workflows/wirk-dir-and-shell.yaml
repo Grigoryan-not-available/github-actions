@@ -17,12 +17,12 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Disolay working dir and list files
-        shell: bash
+        # shell: bash
         run: |
-          pwd
-          ls -la
-          echo $GITHUB_SHA
-          echo $GITHUB_REPOSITORY
-          echo $GITHUB_WORKSPACE
+          Get-Location
+          dir
+          echo $env:GITHUB_SHA
+          echo $env:GITHUB_REPOSITORY
+          echo $env:GITHUB_WORKSPACE
 
       
