@@ -1,7 +1,24 @@
 name: Repository Events
 on:
   push:
+    branches:
+      - main
+      - 'feature/**'
+      - '!feature/exclude-me'
+    # You cannot use branches and branches-ignore for the same event in a workflow
+    # branches-ignore:
+    #   - ignore-me
+    tags:
+      - v1.*
+      - '!v0'
+    paths:
+      - '**.js'
+      - '!docs/**'
   pull_request:
+    branches:
+      - main
+    paths:
+      - '**.js'
   issues:
     types: 
       - opened
