@@ -1,6 +1,7 @@
 name: External events
 on:
   repository_dispatch:
+    types: [on-demand-test]
 
 jobs:
   test-repo-dispatch:
@@ -8,3 +9,9 @@ jobs:
     steps:
       - name: Simple echo
         run: echo "${{ github.event_name }}"
+      - name: Echo var from client payload
+        run: |
+          echo "${{ github.event.client_payload }}"
+          echo "----------------------------------"
+          echo "${{ github.event.client_payload.unit }}"
+          echo "${{ github.event.client_payload.integration }}"
