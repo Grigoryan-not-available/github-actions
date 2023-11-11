@@ -1,0 +1,10 @@
+name: Manual run
+on:
+  workflow_dispatch:
+
+jobs:
+  log-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simple echo
+        run: echo $GITHUB_REF
