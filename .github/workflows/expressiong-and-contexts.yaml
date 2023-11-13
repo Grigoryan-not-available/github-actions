@@ -4,7 +4,7 @@ on:
   - pull_request
   - issues
   - workflow_dispatch
-
+run-name: "Extensions and contexts build #${{ github.run_number }} triggered by ${{ github.actor }}, event: ${{ github.event_name}}"
 jobs:
   exp-and-ctx:
     runs-on: ubuntu-latest
@@ -29,6 +29,13 @@ jobs:
           echo '${{ toJson(steps) }}'
           echo '${{ toJson(runner) }}'
 
-      - name: Write and read file
-        run: |
-          echo '${{ toJson(secrets) }}' | sed -e 's/\(.\)/\1\n/g'
+      - name: Output Run ID
+        run: echo ${{ github.run_id }}
+      - name: Output Run Number
+        run: echo ${{ github.run_number }}
+      - name: Output Run Attempt
+        run: echo ${{ github.run_attempt }}
+    # This is how we can show secret data
+    #   - name: Write and read file
+    #     run: |
+    #       echo '${{ toJson(secrets) }}' | sed -e 's/\(.\)/\1\n/g' 
