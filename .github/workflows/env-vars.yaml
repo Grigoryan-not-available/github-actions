@@ -1,12 +1,32 @@
 name: Environment variables
 on: [push]
 
+env:
+  WF_LEVEL_ENV: Available to all jobs
+  WF_LEVEL_OVERRIDE_ME: I am wf level var
+
 jobs:
   env-vars-and-contexts:
     runs-on: ubuntu-latest
+    # if: $GITHUB_REF == 'refs/heads/main' it will not work!!!!
+    if: github.ref == 'refs/heads/main'
+    env:
+      JOB_LEVEL_ENV: Available in all steps in env-vars-and-contexts job
     steps:
       - name: Log env vars
         run: echo $GITHUB_REF
       - name: Log context
         run: echo '${{ github.ref }}'
+      - name: Log custom env vars
+        env: 
+          STEP_LEVEL_ENV: Available to only in this step
+          WF_LEVEL_OVERRIDE_ME: I am step level var
+        run: |
+          echo '${{ env.WF_LEVEL_ENV }}'
+          echo '${{ env.WF_LEVEL_OVERRIDE_ME }}'
+          echo '${{ env.STEP_LEVEL_ENV }}'
+          echo $WF_LEVEL_ENV
+          echo $WF_LEVEL_OVERRIDE_ME
+          echo $STEP_LEVEL_ENV
+          
     
