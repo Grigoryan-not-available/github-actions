@@ -7,6 +7,7 @@ on:
 run-name: "Extensions and contexts build #${{ github.run_number }} triggered by ${{ github.actor }}, event: ${{ github.event_name}}"
 jobs:
   exp-and-ctx:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Expressions
