@@ -8,9 +8,10 @@ jobs:
       - name: Sleep step
         run: sleep 20
       - name: fail step
+        id: fail-step
         run: exit 1
       - name: Run on failure
-        if: failure()
+        if: failure() && steps.fail-step == 'failure'
         run: echo "It was a fail("
       - name: Run on success
         # Redundant success is default behavior
