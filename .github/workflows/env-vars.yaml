@@ -23,7 +23,7 @@ jobs:
           echo "JOB_LEVEL_ENV=It is custom level var" >> $GITHUB_ENV
       - name: Multiline custom env var
         run: |
-          DELIMITER=123
+          DELIMITER=098
           echo "RANDOM_STR<<$DELIMITER" >> $GITHUB_ENV
           echo "123" >> $GITHUB_ENV
           echo "second line" >> $GITHUB_ENV
