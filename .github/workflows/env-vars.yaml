@@ -23,13 +23,13 @@ jobs:
           echo "JOB_LEVEL_ENV=It is custom level var" >> $GITHUB_ENV
       - name: Multiline custom env var
         run: |
-          DELIMITER=098
-          echo "RANDOM_STR<<$DELIMITER" >> $GITHUB_ENV
-          echo "123" >> $GITHUB_ENV
-          echo "second line" >> $GITHUB_ENV
-          curl -s https://official-joke-api.appspot.com/random_joke >> $GITHUB_ENV
-          echo ""
-          echo "$DELIMITER"
+          {
+            echo 'RANDOM_STR<<EOF'
+            echo "123"
+            echo "second line"
+            curl -s https://official-joke-api.appspot.com/random_joke
+            echo EOF
+          } >> "$GITHUB_ENV"
       - name: Log custom env vars
         env: 
           STEP_LEVEL_ENV: Available to only in this step
