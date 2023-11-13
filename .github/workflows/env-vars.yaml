@@ -21,6 +21,14 @@ jobs:
         run: |
           echo "CURRENT_DATE=$(date)" >> $GITHUB_ENV
           echo "JOB_LEVEL_ENV=It is custom level var" >> $GITHUB_ENV
+      - name: Multiline custom env var
+        run: |
+          DELIMITER=123
+          echo "RANDOM_STR<<$DELIMITER" >> $GITHUB_ENV
+          echo "123" >> $GITHUB_ENV
+          echo "second line" >> $GITHUB_ENV
+          curl -s https://official-joke-api.appspot.com/random_joke >> $GITHUB_ENV
+          echo "$DELIMITER"
       - name: Log custom env vars
         env: 
           STEP_LEVEL_ENV: Available to only in this step
@@ -36,5 +44,6 @@ jobs:
           echo $STEP_LEVEL_ENV
           echo $CURRENT_DATE
           echo '${{ env.CURRENT_DATE }}'
+          echo $RANDOM_STR
           
     
