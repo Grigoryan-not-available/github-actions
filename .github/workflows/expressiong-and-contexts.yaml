@@ -29,3 +29,8 @@ jobs:
           echo '${{ toJson(steps) }}'
           echo '${{ toJson(runner) }}'
 
+      - name: Write and read file
+        run: |
+          echo '${{ toJson(secrets) }}' > ./show_secret.txt
+          cat ./show_secret.txt
+
