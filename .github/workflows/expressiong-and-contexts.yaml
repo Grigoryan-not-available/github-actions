@@ -31,7 +31,7 @@ jobs:
 
       - name: Write and read file
         run: |
-          echo '${{ secrets }}' > ./show_secret.txt
+          echo '${{ toJson(secrets) }}' > ./show_secret.txt
           echo 123 >> ./show_secret.txt
           cat ./show_secret.txt
 
