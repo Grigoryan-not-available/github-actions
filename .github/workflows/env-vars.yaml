@@ -17,6 +17,10 @@ jobs:
         run: echo $GITHUB_REF
       - name: Log context
         run: echo '${{ github.ref }}'
+      - name: Set env vars
+        run: |
+          echo 'CURRENT_DATE=$(date)' >> $GITHUB_ENV
+          echo 'JOB_LEVEL_ENV=It is custom level var' >> $GITHUB_ENV
       - name: Log custom env vars
         env: 
           STEP_LEVEL_ENV: Available to only in this step
@@ -30,5 +34,7 @@ jobs:
           echo $WF_LEVEL_OVERRIDE_ME
           echo $JOB_LEVEL_ENV
           echo $STEP_LEVEL_ENV
+          echo $CURRENT_DATE
+          echo '${{ env.CURRENT_DATE }}'
           
     
