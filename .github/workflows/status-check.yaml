@@ -1,0 +1,31 @@
+name: Status Check Func
+on: [push]
+
+jobs:
+  first:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep step
+        run: sleep 20
+      - name: Run on failure
+        if: failure()
+        run: echo "It was a fail("
+      - name: Run on success
+        # Redundant success is default behavior
+        if: success()
+        run: echo "Default scenario"
+      - name: Always run
+        if: always()
+        run: echo "No matter what happened. I'll execute this step"
+      - name: Run on cancel
+        if: cancelled()
+        run: echo "Some of previos step was cancelled"
+
+  second:
+    runs-on: ubuntu-latest
+    needs: first
+    if: failure()
+    steps:
+      - name: simple echo
+        run: echo "Job 'first' was cancelled"
+        
