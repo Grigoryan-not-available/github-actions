@@ -24,9 +24,11 @@ jobs:
         run: |
           echo '${{ env.WF_LEVEL_ENV }}'
           echo '${{ env.WF_LEVEL_OVERRIDE_ME }}'
+          echo '${{ env.JOB_LEVEL_ENV }}'
           echo '${{ env.STEP_LEVEL_ENV }}'
           echo $WF_LEVEL_ENV
           echo $WF_LEVEL_OVERRIDE_ME
+          echo $JOB_LEVEL_ENV
           echo $STEP_LEVEL_ENV
           
     
