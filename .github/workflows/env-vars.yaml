@@ -28,6 +28,7 @@ jobs:
           echo "123" >> $GITHUB_ENV
           echo "second line" >> $GITHUB_ENV
           curl -s https://official-joke-api.appspot.com/random_joke >> $GITHUB_ENV
+          echo ""
           echo "$DELIMITER"
       - name: Log custom env vars
         env: 
