@@ -10,7 +10,7 @@ jobs:
     # permissions: write-all
     # permissions: {} - GITHUB_TOKEN w/o any permissions
     permissions:
-      issues: write
+      pull-requests: write
     steps:
       - name: Comment on new PRs
         id: set-result
