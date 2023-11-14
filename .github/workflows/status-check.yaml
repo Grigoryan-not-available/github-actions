@@ -4,9 +4,10 @@ on: [push]
 jobs:
   first:
     runs-on: ubuntu-latest
+    timeout-minutes: 1
     steps:
       - name: Sleep step
-        timeout-minutes: 1
+        # timeout-minutes: 1
         run: sleep 90
       - name: fail step
         id: fail-step
