@@ -13,6 +13,9 @@ jobs:
       - name: Run on failure
         if: failure() && steps.fail-step.conclusion == 'failure'
         run: echo "It was a fail("
+      - name: Run on every failure
+        if: failure()
+        run: echo "It was a mistake("
       - name: Run on success
         # Redundant success is default behavior
         if: success()
