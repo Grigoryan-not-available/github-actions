@@ -1,0 +1,18 @@
+name: Matrix
+on: push
+
+jobs:
+  node-matrix:
+    runs-on: ubuntu-latest
+    strategy: 
+      matrix:
+        node-version: [16, 17, 18]
+    steps:
+      - name: Node version
+        run: node -v 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@5ef044f9d09786428e6e895be6be17937becee3a
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: node -v
+    
