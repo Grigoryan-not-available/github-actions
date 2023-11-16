@@ -20,10 +20,10 @@ jobs:
     steps:
       - name: Prepare os parameter for matrix
         id: set-os-output
-        run: echo "os=$(python3 -c "print(','.join('${{ inputs.os }}'.split(',')))")" >> $GITHUB_ENV
+        run: echo "os=$(python3 -c "print('${{ inputs.os }}'.split(','))")" >> $GITHUB_ENV
       - name: Prepare node version parameter for matrix
         id: set-node-version-output
-        run: echo "node-version=$(python3 -c "print(','.join('${{ inputs.node-version }}'.split(',')))")" >> $GITHUB_ENV
+        run: echo "node-version=$(python3 -c "print('${{ inputs.node-version }}'.split(','))")" >> $GITHUB_ENV
       - name: Set output for OS
         id: step-os
         run: echo "step-output=value" >> $GITHUB_OUTPUT
