@@ -14,10 +14,18 @@ on:
 jobs:
   prepare-matrix:
     runs-on: ubuntu-latest
+    outputs:
+      matrix-os: ${{ steps.set-os-output.outputs.os }}
+      matrix-node-version: ${{ steps.set-node-version-output.outputs.node-version }}
     steps:
       - name: Prepare os parameter for matrix
+        id: set-os-output
         run: |
-          python3 -c "print('${{ inputs.os }}'.split(','))"
+          os=$(python3 -c "print('${{ inputs.os }}'.split(','))") >> $GITHUB_OUTPUT
+      - name: Prepare node version parameter for matrix
+        id: set-node-version-output
+        run: |
+          node-version=$(python3 -c "print('${{ inputs.node-version }}'.split(','))") >> $GITHUB_OUTPUT
       - name: Set output for OS
         id: step-os
         run: echo "step-output=value" >> $GITHUB_OUTPUT
@@ -28,6 +36,8 @@ jobs:
         run: |
           echo "${{ steps.step-os.outputs.step-output }}"
           echo "${{ steps.step-node-version.outputs.step-output }}"
+          echo "${{ steps.set-os-output.outputs.os }}"
+          echo "${{ steps.set-node-version-output.outputs.node-version }}"
 
   node-matrix:
     needs: prepare-matrix
