@@ -17,16 +17,17 @@ jobs:
     steps:
       - name: Set output for OS
         id: step-os
-        run: echo "step-output=value" >> $GITHUB-OUTPUT
+        run: echo "step-output=value" >> $GITHUB_OUTPUT
       - name: Set output for OS
         id: step-node-version
-        run: echo "step-output=value 2" >> $GITHUB-OUTPUT
+        run: echo "step-output=value 2" >> $GITHUB_OUTPUT
       - name: Echo outputs
         run: |
           echo "${{ steps.step-os.outputs.step-output }}"
           echo "${{ steps.step-node-version.outputs.step-output }}"
 
   node-matrix:
+    needs: prepare-matrix
     strategy: 
       matrix:
         node-version: [16, 17, 18]
