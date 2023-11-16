@@ -8,11 +8,28 @@ jobs:
       matrix:
         node-version: [16, 17, 18]
         os: [ubuntu-latest, windows-latest]
-      max-parallel: 3
+        include:
+          - os: ubuntu-latest
+            is-ubuntu: true
+          - os: macos-latest
+            node-version: 17
+          - experimental: false
+          - os: ubuntu-latest
+            node-version: 18
+            experimental: true
+          - os: ubuntu-latest
+            node-version: 15
+        exclude:
+          - os: ubuntu-latest
+            node-version: 16
+    #   fail-fast: false
+    #   max-parallel: 3
     runs-on: ${{ matrix.os }}
     steps:
       - name: Node version
         run: node -v 
+      - name: Echo metrics
+        run: echo "${{ toJson(matrix) }}"
       - name: Setup Node.js environment
         uses: actions/setup-node@5ef044f9d09786428e6e895be6be17937becee3a
         with:
