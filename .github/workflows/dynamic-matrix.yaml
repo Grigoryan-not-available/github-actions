@@ -41,8 +41,8 @@ jobs:
     needs: prepare-matrix
     strategy: 
       matrix:
-        node-version: [16, 17, 18]
-        os: [ubuntu-latest, windows-latest]
+        node-version: ${{ needs.prepare-matrix.outputs.matrix-node-version }}
+        os: ${{ needs.prepare-matrix.outputs.matrix-os }}
     runs-on: ${{ matrix.os }}
     steps:
       - name: Node version
