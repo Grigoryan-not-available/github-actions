@@ -1,0 +1,43 @@
+name: Dunamic matrix
+on:
+  workflow_dispatch:
+    inputs:
+      os:
+        description: OS
+        default: "ubuntu-latest,windows-latest,macos-latest"
+        type: string
+      node-version:
+        description: Node version
+        default: "16,17,18"
+        type: string
+
+jobs:
+  prepare-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set output for OS
+        id: step-os
+        run: echo "step-output=value" >> $GITHUB-OUTPUT
+      - name: Set output for OS
+        id: step-node-version
+        run: echo "step-output=value 2" >> $GITHUB-OUTPUT
+      - name: Echo outputs
+        run: |
+          echo "${{ steps.step-os.outputs.step-output }}"
+          echo "${{ steps.step-node-version.outputs.step-output }}"
+
+  node-matrix:
+    strategy: 
+      matrix:
+        node-version: [16, 17, 18]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Node version
+        run: node -v 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@5ef044f9d09786428e6e895be6be17937becee3a
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: node -v
+    
