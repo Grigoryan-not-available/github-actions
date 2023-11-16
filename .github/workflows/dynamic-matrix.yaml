@@ -1,4 +1,4 @@
-name: Dunamic matrix
+name: Dynamic matrix
 on:
   workflow_dispatch:
     inputs:
