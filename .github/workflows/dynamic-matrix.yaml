@@ -15,6 +15,9 @@ jobs:
   prepare-matrix:
     runs-on: ubuntu-latest
     steps:
+      - name: Prepare os parameter for matrix
+        run: |
+          python3 -c "print(${{ inputs.os }}.split(','))"
       - name: Set output for OS
         id: step-os
         run: echo "step-output=value" >> $GITHUB_OUTPUT
