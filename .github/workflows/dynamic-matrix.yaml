@@ -15,8 +15,8 @@ jobs:
   prepare-matrix:
     runs-on: ubuntu-latest
     outputs:
-      matrix-os: ${{ toJson(steps.set-os-output.outputs.os) }}
-      matrix-node-version: ${{ toJson(steps.set-node-version-output.outputs.node-version) }}
+      matrix-os: ${{ steps.set-os-output.outputs.os }}
+      matrix-node-version: ${{ steps.set-node-version-output.outputs.node-version }}
     steps:
       - name: Prepare os parameter for matrix
         id: set-os-output
@@ -41,8 +41,8 @@ jobs:
     needs: prepare-matrix
     strategy: 
       matrix:
-        node-version: ${{ needs.prepare-matrix.outputs.matrix-node-version }}
-        os: ${{ needs.prepare-matrix.outputs.matrix-os }}
+        node-version: ${{ toJson(needs.prepare-matrix.outputs.matrix-node-version) }}
+        os: ${{ toJson(needs.prepare-matrix.outputs.matrix-os) }}
     runs-on: ${{ matrix.os }}
     steps:
       - name: Node version
