@@ -28,3 +28,10 @@ jobs:
       name: "Hi!"
     secrets:
       access-token: ${{ secrets.ACCESS_TOKEN }}
+
+  show-reusable-wf-outputs:
+    needs: calling-reusable-wf
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show output of reusable wf
+        run: echo ${{ needs.calling-reusable-wf.outputs.date }}

@@ -11,6 +11,10 @@ on:
       access-token:
         description: "Secret descriprion"
         required: true
+    outputs:
+      date:
+        description: "Date value"
+        value: ${{ jobs.generate-optputs.outputs.reusable-date }}
 
 jobs:
   checkout:
@@ -20,6 +24,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: Simple ls
         run: ls -laR
+
   log-context-and-inputs:
     runs-on: ubuntu-latest
     steps:
@@ -29,3 +34,12 @@ jobs:
         run: echo "${{ inputs.name }}"
       - name: Show secret
         run: echo "${{ secrets.access-token }}"
+
+  generate-optputs:
+    runs-on: ubuntu-latest
+    outputs:
+      reusable-date: ${{ steps.simple-output.outputs.date }}
+    steps:
+      - name: Add outputs
+        id: simple-output
+        run: echo "date=$(date)" >> $GITHUB_OUTPUT
