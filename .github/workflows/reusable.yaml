@@ -7,10 +7,6 @@ on:
         type: string
         default: Ihor
         required: false
-    secrets:
-      access-token:
-        description: "Secret descriprion"
-        required: true
     outputs:
       date:
         description: "Date value"
@@ -34,6 +30,13 @@ jobs:
         run: echo "${{ inputs.name }}"
       - name: Show secret
         run: echo "${{ secrets.access-token }}"
+
+  calling-reusable-wf-of-tutor:
+    uses: github-actions-course/workflows/.github/workflows/reusable.yaml@37d9ff792b46d57712294a74a8d8590a6f75b10f
+    with:
+      name: ${{ inputs.name }}
+    secrets:
+      access-token: ${{ secrets.ACCESS_TOKEN }}
 
   generate-optputs:
     runs-on: ubuntu-latest

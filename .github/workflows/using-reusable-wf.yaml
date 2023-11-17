@@ -18,16 +18,8 @@ jobs:
   calling-reusable-wf:
     uses: ./.github/workflows/reusable.yaml
     with:
-      name: "I am Ihor"
-    secrets:
-      access-token: ${{ secrets.GITHUB_TOKEN }}
-
-  calling-reusable-wf-of-tutor:
-    uses: github-actions-course/workflows/.github/workflows/reusable.yaml@37d9ff792b46d57712294a74a8d8590a6f75b10f
-    with:
-      name: "Hi!"
-    secrets:
-      access-token: ${{ secrets.ACCESS_TOKEN }}
+      name: ${{ inputs.name }}
+    secrets: inherit
 
   show-reusable-wf-outputs:
     needs: calling-reusable-wf
