@@ -36,6 +36,7 @@ jobs:
             console.log(res.data)
 
   show-artifact:
+    needs: use-axios
     runs-on: ubuntu-latest
     steps:
       - name: Download Code Coverage
@@ -48,5 +49,3 @@ jobs:
       - name: First try to show reports
         run: ls -la
         working-directory: code-coverage-report
-
-      
