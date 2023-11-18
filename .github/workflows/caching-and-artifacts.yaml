@@ -1,5 +1,6 @@
 name: Caching and Artifacts
 on: [workflow_dispatch]
+
 jobs:
   use-axios:
     runs-on: ubuntu-latest
@@ -17,6 +18,15 @@ jobs:
         run: echo '${{ toJSON(steps.cache-dependencies.outputs) }}'
       - name: Install dependencies
         run: npm install
+      - name: Run tests
+        run: npm test
+      - name: Upload code coverage report 
+        if: ${{ always() }}
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
+        with:
+          name: code-coverage
+          path: coverage/lcov-report/index.html
+          retention-days: 12
       - name: Use Axios
         uses: actions/github-script@v6
         with:
