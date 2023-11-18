@@ -34,3 +34,19 @@ jobs:
             const axios = require('axios');
             const res = await axios('https://icanhazdadjoke.com/', { headers: { Accept: 'text/plain' } })
             console.log(res.data)
+
+  show-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Code Coverage
+        uses: actions/download-artifact@e9ef242655d12993efdcda9058dee2db83a2cb9b
+        with:
+          name: code-coverage
+          path: code-coverage-report
+      - name: First try to show reports
+        run: ls -la
+      - name: First try to show reports
+        run: ls -la
+        working-directory: code-coverage-report
+
+      
