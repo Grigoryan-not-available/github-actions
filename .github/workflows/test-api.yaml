@@ -4,6 +4,7 @@ on: [push, workflow_dispatch]
 jobs:
   test-api:
     runs-on: ubuntu-latest
+    container: ubuntu:22:04
     services:
       app:
         image: alialaa17/simple-node-api:1.0
@@ -23,6 +24,10 @@ jobs:
     #     with:
     #       repository: github-actions-course/node-js-api
     #       ref: 69f4a069f02bbced7d0b2f9f25b79a462d4cfe32
+      - name: Install curl
+        run: |
+          apt-get -y update
+          apt get -y install curl
       - name: Dump services context
         run: echo '${{ toJson(job.services) }}'
       - name: Post a user
