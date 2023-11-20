@@ -11,6 +11,8 @@ jobs:
           repository: github-actions-course/node-js-api
           ref: 69f4a069f02bbced7d0b2f9f25b79a462d4cfe32
           path: src-app
+      - name: check src dir
+        run: ls -laR
         
   verify-src-dir:
     needs: clone-src-code
