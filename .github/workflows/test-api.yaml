@@ -1,0 +1,27 @@
+name: Test API
+on: [push, workflow_dispatch]
+
+jobs:
+  clone-src-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone src code
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          repository: github-actions-course/node-js-api
+          ref: 69f4a069f02bbced7d0b2f9f25b79a462d4cfe32
+          path: src-app
+        
+  verify-src-dir:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check src dir
+        run: ls -laR
+
+#   test-api:
+#     runs-on: ubuntu-latest
+#     services:
+#       app:
+#         image: alialaa17/simple-node-api:1.0
+#         ports:
+#           - 3001:3000
