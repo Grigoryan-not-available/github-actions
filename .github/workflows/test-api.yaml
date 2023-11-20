@@ -27,7 +27,7 @@ jobs:
       - name: Install curl
         run: |
           apt-get -y update
-          apt get -y install curl
+          apt-get -y install curl
       - name: Dump services context
         run: echo '${{ toJson(job.services) }}'
       - name: Post a user
