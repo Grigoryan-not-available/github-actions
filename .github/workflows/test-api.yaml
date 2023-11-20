@@ -1,5 +1,5 @@
 name: Test API
-on: [push, workflow_dispatch]
+on: [workflow_dispatch]
 
 jobs:
   test-api:
@@ -19,11 +19,6 @@ jobs:
         #   - 27017:27017
 
     steps:
-    #   - name: Clone src code
-    #     uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-    #     with:
-    #       repository: github-actions-course/node-js-api
-    #       ref: 69f4a069f02bbced7d0b2f9f25b79a462d4cfe32
       - name: Install curl
         run: |
           apt-get -y update
