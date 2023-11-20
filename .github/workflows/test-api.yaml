@@ -24,8 +24,8 @@ jobs:
     #       repository: github-actions-course/node-js-api
     #       ref: 69f4a069f02bbced7d0b2f9f25b79a462d4cfe32
       - name: Dump services context
-        run: echo ${{ toJson(job.services) }}
+        run: echo '${{ toJson(job.services) }}'
       - name: Post a user
         run: 'curl -X POST http://localhost:3001/api/users -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "Ihor"}'''
       - name: Get list of users
-        run: curl http://localhost:3001/api/users
+        run: curl 'http://localhost:3001/api/users'
