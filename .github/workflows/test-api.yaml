@@ -2,41 +2,30 @@ name: Test API
 on: [push, workflow_dispatch]
 
 jobs:
-  clone-src-code:
+  test-api:
     runs-on: ubuntu-latest
-    steps:
-      - name: Clone src code
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-        with:
-          repository: github-actions-course/node-js-api
-          ref: 69f4a069f02bbced7d0b2f9f25b79a462d4cfe32
-          path: src-app
-      - name: Upload src code
-        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
-        with:
-          name: src-code
-          path: src-app
-          retention-days: 2
-        
-  verify-src-dir:
-    needs: clone-src-code
-    runs-on: ubuntu-latest
-    steps:
-      - name: First check src dir
-        run: ls -laR
-      - name: Download src code
-        uses: actions/download-artifact@e9ef242655d12993efdcda9058dee2db83a2cb9b
-        with:
-          name: src-code
-          path: src-app
-      - name: Second check src dir
-        run: ls -laR
+    services:
+      app:
+        image: alialaa17/simple-node-api:1.0
+        ports:
+          - 3001:3000
+        env:
+          MONGO_HOSTNAME: mongo
 
-#   test-api:
-#     needs: clone-src-code
-#     runs-on: ubuntu-latest
-#     services:
-#       app:
-#         image: alialaa17/simple-node-api:1.0
-#         ports:
-#           - 3001:3000
+      mongo:
+        image: mongo
+        ports:
+          - 27017:27017
+
+    steps:
+    #   - name: Clone src code
+    #     uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+    #     with:
+    #       repository: github-actions-course/node-js-api
+    #       ref: 69f4a069f02bbced7d0b2f9f25b79a462d4cfe32
+      - name: Dump services context
+        run: echo ${{ toJson(job.services) }}
+      - name: Post a user
+        run: 'curl -X POST http://localhost:3001/api/users -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "Ihor"}'''
+      - name: Get list of users
+        run: curl http://localhost:3001/api/users
