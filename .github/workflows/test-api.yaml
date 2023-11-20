@@ -11,14 +11,25 @@ jobs:
           repository: github-actions-course/node-js-api
           ref: 69f4a069f02bbced7d0b2f9f25b79a462d4cfe32
           path: src-app
-      - name: check src dir
-        run: ls -laR
+      - name: Upload src code
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
+        with:
+          name: src-code
+          path: src-app
+          retention-days: 2
         
   verify-src-dir:
     needs: clone-src-code
     runs-on: ubuntu-latest
     steps:
-      - name: check src dir
+      - name: First check src dir
+        run: ls -laR
+      - name: Download src code
+        uses: actions/download-artifact@e9ef242655d12993efdcda9058dee2db83a2cb9b
+        with:
+          name: src-code
+          path: src-app
+      - name: Second check src dir
         run: ls -laR
 
 #   test-api:
