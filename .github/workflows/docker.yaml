@@ -29,7 +29,7 @@ jobs:
       - name: Show node version
         uses: docker://node:20.9.0-alpine3.18
         with:
-          arg: -v
+          arg: '-v'
     #   - name: Container step 1
     #     uses: docker://node:20.9.0-alpine3.18
     #     with:
@@ -44,7 +44,7 @@ jobs:
         uses: docker://node:20.9.0-alpine3.18
         with:
           entrypoint: /bin/sh
-          args: -c node -p 2+5
+          args: '-c "node -p 2+5"'
     #   - name: Container step 3
     #     if: ${{ always() }}
     #     uses: docker://node:20.9.0-alpine3.18
