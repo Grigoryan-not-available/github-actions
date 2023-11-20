@@ -13,12 +13,14 @@ jobs:
           path: src-app
         
   verify-src-dir:
+    needs: clone-src-code
     runs-on: ubuntu-latest
     steps:
       - name: check src dir
         run: ls -laR
 
 #   test-api:
+#     needs: clone-src-code
 #     runs-on: ubuntu-latest
 #     services:
 #       app:
