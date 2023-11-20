@@ -33,8 +33,9 @@ jobs:
     #   - name: Container step 1
     #     uses: docker://node:20.9.0-alpine3.18
     #     with:
-    #       entrypoint: /bin/sh -c
+    #       entrypoint: /bin/sh
     #       args:
+    #         -c 
     #         - node
     #         - p
     #         - 2+5
@@ -42,11 +43,11 @@ jobs:
         if: ${{ always() }}
         uses: docker://node:20.9.0-alpine3.18
         with:
-          entrypoint: /bin/sh -c
-          args: node -p 2+5
+          entrypoint: /bin/sh
+          args: -c node -p 2+5
     #   - name: Container step 3
     #     if: ${{ always() }}
     #     uses: docker://node:20.9.0-alpine3.18
     #     with:
-    #       entrypoint: /bin/sh -c
-    #       args: [node, -p, 2+5]
+    #       entrypoint: /bin/sh
+    #       args: [-c, node, -p, 2+5]
