@@ -26,10 +26,12 @@ jobs:
           cat /etc/os-release
       - name: Show API_URL env
         run: echo $API_URL
+      - name: Create simple file
+        run: echo "demo text" > demo.txt 
       - name: Show node version
         uses: docker://node:20.9.0-alpine3.18
         with:
-          arg: '-v'
+          argі: '-v'
     #   - name: Container step 1
     #     uses: docker://node:20.9.0-alpine3.18
     #     with:
@@ -40,11 +42,15 @@ jobs:
     #         - p
     #         - 2+5
       - name: Container step 2
-        if: ${{ always() }}
         uses: docker://node:20.9.0-alpine3.18
         with:
           entrypoint: /bin/sh
           args: '-c "node -p 2+5"'
+      - name: Container step show demo file
+        uses: docker://node:20.9.0-alpine3.18
+        with:
+          entrypoint: cat
+          args: 'demo.txt'
     #   - name: Container step 3
     #     if: ${{ always() }}
     #     uses: docker://node:20.9.0-alpine3.18
