@@ -18,11 +18,11 @@ jobs:
     #     - my_docker_volume:/volume_mount
     #     - /data/my_data
     #     - /source/directory:/destination/directory
-    #   options: --entrypoint /usr/bin/sh --cpus 1
+    #   options: --entrypoint /bin/sh --cpus 1
     steps:
       - name: Show node and OS versions
         run: |
           node -v
-          cat /etc/os-releases
+          cat /etc/os-release
       - name: Show API_URL env
         run: echo $API_URL
