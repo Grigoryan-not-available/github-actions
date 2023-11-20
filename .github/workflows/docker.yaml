@@ -1,0 +1,28 @@
+name: Docker
+on:
+  workflow_dispatch:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    container: 
+      image: node:21-alpine3.18
+    #   credentials:
+    #     username: username
+    #     password: password
+      env:
+        API_URL: example.com
+      ports:
+        - 80
+    #   volumes:
+    #     - my_docker_volume:/volume_mount
+    #     - /data/my_data
+    #     - /source/directory:/destination/directory
+    #   options: --entrypoint /usr/bin/sh --cpus 1
+    steps:
+      - name: Show node and OS versions
+        run: |
+          node -v
+          cat /etc/os-releases
+      - name: Show API_URL env
+        run: echo $API_URL
