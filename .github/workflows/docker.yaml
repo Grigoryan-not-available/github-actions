@@ -27,11 +27,11 @@ jobs:
       - name: Show API_URL env
         run: echo $API_URL
       - name: Show node version
-        uses: docker://20.9.0-alpine3.18
+        uses: docker://node:20.9.0-alpine3.18
         with:
           arg: -v
     #   - name: Container step 1
-    #     uses: docker://20.9.0-alpine3.18
+    #     uses: docker://node:20.9.0-alpine3.18
     #     with:
     #       entrypoint: /bin/sh -c
     #       args:
@@ -40,13 +40,13 @@ jobs:
     #         - 2+5
       - name: Container step 2
         if: ${{ always() }}
-        uses: docker://20.9.0-alpine3.18
+        uses: docker://node:20.9.0-alpine3.18
         with:
           entrypoint: /bin/sh -c
           args: node -p 2+5
     #   - name: Container step 3
     #     if: ${{ always() }}
-    #     uses: docker://20.9.0-alpine3.18
+    #     uses: docker://node:20.9.0-alpine3.18
     #     with:
     #       entrypoint: /bin/sh -c
     #       args: [node, -p, 2+5]
