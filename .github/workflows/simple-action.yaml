@@ -7,13 +7,14 @@ jobs:
     steps:
       - name: Clone src code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-        with:
-          repository: github-actions-course/course-code
-          ref: ca290e044544631a974f2b2a268ad1a383e2d779
-      - name: Simple js action
+        # with:
+        #   repository: github-actions-course/course-code
+        #   ref: ca290e044544631a974f2b2a268ad1a383e2d779
+      - name: Simple Docker action
         id: greet
         # uses: actions/hello-world-javascript-action@6274a25ff0c5455160517a0d50cbba260b44fa5a
-        uses: ./.github/actions/hello
+        # uses: ./.github/actions/hello
+        uses: ./.github/actions/hello-docker
         with:
           who_to_greet: "Ihor"
       - name: Log greating time
