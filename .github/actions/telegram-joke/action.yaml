@@ -19,11 +19,6 @@ outputs:
 runs:
   using: composite
   steps:
-    # - name: Install curl
-    #   shell: bash
-    #   run: |
-    #     apt-get -y update
-    #     apt-get -y install curl
     - name: Generate joke
       shell: bash
       id: joke
@@ -31,13 +26,7 @@ runs:
         RANDOM_JOKE_JSON=$(curl -s https://official-joke-api.appspot.com/random_joke)
         JOKE_SETUP=$(echo ${RANDOM_JOKE_JSON} | jq -r .setup)
         JOKE_PUNCHLINE="||$(echo ${RANDOM_JOKE_JSON} | jq -r .punchline)||"
-        {
-          echo 'random_joke<<EOF'
-          echo "${JOKE_SETUP}
-          ${JOKE_PUNCHLINE}"
-          echo ""
-          echo EOF
-        } >> "$GITHUB_OUTPUT"
+        echo "$(jq -r '.setup | @uri' <<< "${RANDOM_JOKE_JSON}")%0A$||$(jq -r '.punchline | @uri' <<< "${RANDOM_JOKE_JSON}")||" >> "$GITHUB_OUTPUT"
     - name: Generate joke file
       if: ${{ inputs.upload_joke }}
       shell: bash
@@ -51,5 +40,5 @@ runs:
         path: joke.txt
     - name: Send joke to telegram"
       shell: bash
-      run: curl -s --data-urlencode "text=${{ steps.joke.outputs.random_joke }}" https://api.telegram.org/bot${{ inputs.token }}/sendMessage?chat_id=${{ inputs.chat_id }}/&parse_mode=MarkdownV2
+      run: curl -s https://api.telegram.org/bot${{ inputs.token }}/sendMessage?chat_id=${{ inputs.chat_id }}/&parse_mode=MarkdownV2&text=${{ steps.joke.outputs.random_joke }}
     
