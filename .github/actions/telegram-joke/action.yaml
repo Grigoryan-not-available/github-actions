@@ -26,7 +26,12 @@ runs:
         RANDOM_JOKE_JSON=$(curl -s https://official-joke-api.appspot.com/random_joke)
         JOKE_SETUP=$(echo ${RANDOM_JOKE_JSON} | jq -r .setup)
         JOKE_PUNCHLINE="||$(echo ${RANDOM_JOKE_JSON} | jq -r .punchline)||"
-        echo "random_joke=${JOKE_SETUP}\n${JOKE_PUNCHLINE}" >> "$GITHUB_OUTPUTS"
+        {
+          echo 'random_joke<<EOF'
+          echo "${JOKE_SETUP}\n${JOKE_PUNCHLINE}"
+          echo ""
+          echo EOF
+        } >> "$GITHUB_OUTPUTS"
     - name: Generate joke file
       if: ${{ inputs.upload_joke }}
       shell: bash
