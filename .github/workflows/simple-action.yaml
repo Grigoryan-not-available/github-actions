@@ -25,5 +25,5 @@ jobs:
       # - name: Log greating time
       #   run: echo "${{ steps.greet.outputs.time }}"
       # - name: Show ENV var
-      #   run: echo $HELLO_TIME 
+      #   run: echo $HELLO_TIME
         
