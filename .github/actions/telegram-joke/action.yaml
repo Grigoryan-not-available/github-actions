@@ -33,7 +33,8 @@ runs:
         JOKE_PUNCHLINE="||$(echo ${RANDOM_JOKE_JSON} | jq -r .punchline)||"
         {
           echo 'random_joke<<EOF'
-          echo "${JOKE_SETUP}\n${JOKE_PUNCHLINE}"
+          echo "${JOKE_SETUP}
+          ${JOKE_PUNCHLINE}"
           echo ""
           echo EOF
         } >> "$GITHUB_OUTPUT"
