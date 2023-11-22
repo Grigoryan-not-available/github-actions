@@ -23,12 +23,10 @@ runs:
       shell: bash
       id: joke
       run: |
-        {
-          echo 'random_joke<<EOF'
-          curl -s https://official-joke-api.appspot.com/random_joke
-          echo ""
-          echo EOF
-        } >> "$GITHUB_OUTPUTS"
+        RANDOM_JOKE_JSON=$(curl -s https://official-joke-api.appspot.com/random_joke)
+        JOKE_SETUP=$(echo ${RANDOM_JOKE_JSON} | jq -r .setup)
+        JOKE_PUNCHLINE="||$(echo ${RANDOM_JOKE_JSON} | jq -r .punchline)||"
+        echo "random_joke=${JOKE_SETUP}\n${JOKE_PUNCHLINE}" >> "$GITHUB_OUTPUTS"
     - name: Generate joke file
       if: ${{ inputs.upload_joke }}
       shell: bash
@@ -47,6 +45,6 @@ runs:
         apt-get -y install curl
     - name: Send joke to telegram"
       shell: bash
-      run: curl https://api.telegram.org/bot${{ inputs.token }}/sendMessage?chat_id=${{ inputs.chat_id }}/&parse_mode=Markdown&text=${{ steps.joke.outputs.random_joke }}
+      run: curl -s https://api.telegram.org/bot${{ inputs.token }}/sendMessage?chat_id=${{ inputs.chat_id }}/&parse_mode=Markdown&text=${{ steps.joke.outputs.random_joke }}
     
 
