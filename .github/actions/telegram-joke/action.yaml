@@ -31,7 +31,7 @@ runs:
           echo "${JOKE_SETUP}\n${JOKE_PUNCHLINE}"
           echo ""
           echo EOF
-        } >> "$GITHUB_OUTPUTS"
+        } >> "$GITHUB_OUTPUT"
     - name: Generate joke file
       if: ${{ inputs.upload_joke }}
       shell: bash
