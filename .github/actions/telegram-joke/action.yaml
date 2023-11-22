@@ -50,6 +50,5 @@ runs:
         path: joke.txt
     - name: Send joke to telegram"
       shell: bash
-      run: curl -s https://api.telegram.org/bot${{ inputs.token }}/sendMessage?chat_id=${{ inputs.chat_id }}/&parse_mode=MarkdownV2&text=${{ steps.joke.outputs.random_joke }}
+      run: curl -s --data-urlencode "text=${{ steps.joke.outputs.random_joke }}" https://api.telegram.org/bot${{ inputs.token }}/sendMessage?chat_id=${{ inputs.chat_id }}/&parse_mode=MarkdownV2
     
-
