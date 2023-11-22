@@ -19,6 +19,11 @@ outputs:
 runs:
   using: composite
   steps:
+    # - name: Install curl
+    #   shell: bash
+    #   run: |
+    #     apt-get -y update
+    #     apt-get -y install curl
     - name: Generate joke
       shell: bash
       id: joke
@@ -43,11 +48,6 @@ runs:
       with:
         name: joke
         path: joke.txt
-    - name: Install curl
-      shell: bash
-      run: |
-        apt-get -y update
-        apt-get -y install curl
     - name: Send joke to telegram"
       shell: bash
       run: curl -s https://api.telegram.org/bot${{ inputs.token }}/sendMessage?chat_id=${{ inputs.chat_id }}/&parse_mode=Markdown&text=${{ steps.joke.outputs.random_joke }}
