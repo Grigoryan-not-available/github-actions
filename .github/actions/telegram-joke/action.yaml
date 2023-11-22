@@ -1,0 +1,52 @@
+name: Random joke
+author: Grigoryan-not-available
+description: "Generate random joke and send it to telegram"
+inputs:
+  chat_id:
+    description: "Telegram bot chat id"
+    required: true
+  token:
+    description: "Telegram bot token"
+    required: true
+  upload_joke:
+    description: "Upload joke as an artifact?"
+
+outputs:
+  joke:
+    description: "Generated joke"
+    value: ${{ steps.joke.outputs.random_joke }}
+
+runs:
+  using: composite
+  steps:
+    - name: Generate joke
+      shell: bash
+      id: joke
+      run: |
+        {
+          echo 'random_joke<<EOF'
+          curl -s https://official-joke-api.appspot.com/random_joke
+          echo ""
+          echo EOF
+        } >> "$GITHUB_OUTPUTS"
+    - name: Generate joke file
+      if: ${{ inputs.upload_joke }}
+      shell: bash
+      id: joke-atrifact
+      run: echo "${{ steps.joke.outputs.random_joke }}" >> joke.txt
+    - name: Upload joke as an atrifact
+      if: ${{ inputs.upload_joke }}
+      uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
+      with:
+        name: joke
+        path: joke.txt
+    - name: Install curl
+      shell: bash
+      run: |
+        apt-get -y update
+        apt-get -y install curl
+    - name: Send joke to telegram"
+      shell: bash
+      run: curl https://api.telegram.org/bot${{ inputs.token }}/sendMessage?chat_id=${{ inputs.chat_id }}/&parse_mode=Markdown&text=${{ steps.joke.outputs.random_joke }}
+    
+

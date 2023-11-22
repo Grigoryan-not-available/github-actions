@@ -10,15 +10,20 @@ jobs:
         # with:
         #   repository: github-actions-course/course-code
         #   ref: ca290e044544631a974f2b2a268ad1a383e2d779
-      - name: Simple Docker action
-        id: greet
+      - name: Simple composite action
+        id: joke
+        # id: greet
         # uses: actions/hello-world-javascript-action@6274a25ff0c5455160517a0d50cbba260b44fa5a
         # uses: ./.github/actions/hello
-        uses: ./.github/actions/hello-docker
+        uses: ./.github/actions/telegram-joke
         with:
-          who_to_greet: "Ihor"
-      - name: Log greating time
-        run: echo "${{ steps.greet.outputs.time }}"
-      - name: Show ENV var
-        run: echo $HELLO_TIME 
+          chat_id: ${{ secrets.TELEGRAM_BOT_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          upload_joke: true
+      - name: Show joke output
+        run: echo "${{ steps.joke.outputs.joke }}"
+      # - name: Log greating time
+      #   run: echo "${{ steps.greet.outputs.time }}"
+      # - name: Show ENV var
+      #   run: echo $HELLO_TIME 
         
