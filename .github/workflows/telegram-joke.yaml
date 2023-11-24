@@ -1,0 +1,14 @@
+name: Send random joke to telegram
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 16 * * *'
+
+jobs:
+  send-joke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Grigoryan-not-available/telegram-joke@main
+        with:
+          chat_id: ${{ secrets.TELEGRAM_JOKE_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
